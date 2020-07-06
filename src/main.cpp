@@ -35,7 +35,6 @@ int main(int argc, const char **argv)
         for( int i = 1; i < argc; ++i )
             if( std::string_view{argv[i]} == "-f" && ++i < argc )
                 osm_data_file = argv[i];
-            else if
     }
     else {
         std::cout << "To specify a map file use the following format: " << std::endl;
