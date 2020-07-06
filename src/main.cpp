@@ -30,10 +30,12 @@ static std::optional<std::vector<std::byte>> ReadFile(const std::string &path)
 int main(int argc, const char **argv)
 {    
     std::string osm_data_file = "";
+    float start_x, start_y, end_x, end_y;
     if( argc > 1 ) {
         for( int i = 1; i < argc; ++i )
             if( std::string_view{argv[i]} == "-f" && ++i < argc )
                 osm_data_file = argv[i];
+            else if
     }
     else {
         std::cout << "To specify a map file use the following format: " << std::endl;
@@ -51,16 +53,21 @@ int main(int argc, const char **argv)
         else
             osm_data = std::move(*data);
     }
-    
-    // TODO 1: Declare floats `start_x`, `start_y`, `end_x`, and `end_y` and get
-    // user input for these values using std::cin. Pass the user input to the
-    // RoutePlanner object below in place of 10, 10, 90, 90.
+
+    std::cout << "Enter start x btw. 0 - 99: ";
+    std::cin >> start_x;
+    std::cout << "Enter start y btw. 0 - 99: ";
+    std::cin >> start_y;
+    std::cout << "Enter end x btw. 0 - 99: ";
+    std::cin >> end_x;
+    std::cout << "Enter end y btw. 0 - 99: ";
+    std::cin >> end_y;
 
     // Build Model.
     RouteModel model{osm_data};
 
     // Create RoutePlanner object and perform A* search.
-    RoutePlanner route_planner{model, 10, 10, 90, 90};
+    RoutePlanner route_planner{model, start_x, start_y, end_x, end_y };
     route_planner.AStarSearch();
 
     std::cout << "Distance: " << route_planner.GetDistance() << " meters. \n";
